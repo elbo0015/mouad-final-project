@@ -3,29 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maroc Voyage | Luxury Planner</title>
+    <title>Maroc Voyage | Luxury Travel Planner</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Maroc Voyage</div>
+        <div class="logo">MAROC VOYAGE</div>
         <ul class="nav-links">
             <li><a href="#" onclick="showSection('home')">Home</a></li>
             <li><a href="#" onclick="showSection('planner')">Planner</a></li>
             <li><a href="#" onclick="showSection('contact')">Contact</a></li>
         </ul>
-        <button class="login-btn" onclick="toggleLogin(true)">Log in</button>
+        <button class="login-btn" onclick="toggleLogin(true)">Log In</button>
     </nav>
 
     <section id="home-view" class="view-section">
         <header class="hero">
             <div class="hero-content">
-                <h1>Build Your Trip</h1>
-                <p>Customize your Moroccan experience step by step.</p>
+                <h1>Experience Morocco</h1>
+                <p>Curate your luxury journey through the Red City and beyond.</p>
                 <button class="start-btn" onclick="showSection('planner')">Start Planning</button>
             </div>
         </header>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Live Weather: Marrakech</h3>
+                <div class="weather-content">
+                    <span class="temp">28°C</span>
+                    <p>Sunny & Clear Skies</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>Pro Travel Tip</h3>
+                <p id="daily-tip">Loading your daily Moroccan insight...</p>
+            </div>
+        </div>
     </section>
 
     <section id="planner-view" class="view-section" style="display:none;">
@@ -33,35 +47,30 @@
             <main class="planner-main">
                 <div class="tabs">
                     <button class="tab-link active" onclick="switchTab(event, 'dest-tab')">1. Destinations</button>
-                    <button class="tab-link" onclick="switchTab(event, 'stay-tab')">2. Stays</button>
-                    <button class="tab-link" onclick="switchTab(event, 'review-tab')">3. Review</button>
+                    <button class="tab-link" onclick="switchTab(event, 'stay-tab')">2. Luxury Stays</button>
+                    <button class="tab-link" onclick="switchTab(event, 'review-tab')">3. Experiences</button>
                 </div>
                 
                 <div id="dest-tab" class="tab-content active">
-                    <h2>Select Destinations</h2>
                     <div class="grid" id="dest-grid"></div>
                 </div>
 
                 <div id="stay-tab" class="tab-content">
-                    <h2>Luxury Stays</h2>
-                    <p>Select a traditional Riad for your nights in Morocco.</p>
                     <div class="grid" id="stay-grid"></div>
                 </div>
 
                 <div id="review-tab" class="tab-content">
-                    <h2>Ready to Go?</h2>
-                    <p>Review your selection in the sidebar and click confirm.</p>
+                    <div class="grid" id="experience-grid"></div>
                 </div>
             </main>
 
             <aside class="sidebar">
                 <div class="summary-card">
-                    <h3>Your Trip</h3>
-                    <div id="cart-items">
-                        <p class="empty-msg">Nothing selected yet.</p>
-                    </div>
+                    <h3>Your Itinerary</h3>
+                    <hr>
+                    <div id="cart-items"><p>Select items to begin.</p></div>
                     <div class="total-row">
-                        <p>Estimated Total</p>
+                        <p>Total Estimate</p>
                         <h2 id="total-price">$0</h2>
                     </div>
                     <button class="confirm-btn" onclick="confirmTrip()">Confirm My Trip</button>
@@ -73,41 +82,35 @@
     <section id="confirmation-view" class="view-section" style="display:none;">
         <div class="confirm-container">
             <div class="success-icon">✔</div>
-            <h2>Trip Confirmed!</h2>
+            <h2>Reservation Confirmed</h2>
             <div class="booking-summary" id="final-summary"></div>
-            <button class="start-btn" onclick="showSection('home')">Back to Home</button>
+            <button class="start-btn" onclick="showSection('home')">Return Home</button>
         </div>
     </section>
 
-    <section id="contact-view" class="view-section" style="display:none;">
-        <div class="contact-box">
-            <h2>Contact Us</h2>
-            <p>📍 123 Medina Street, Marrakech, Morocco</p>
-            <p>📧 hello@moroccotravel.com</p>
+    <footer class="main-footer">
+        <div class="newsletter">
+            <h3>Join the Elite Circle</h3>
+            <p>Get exclusive luxury offers directly to your inbox.</p>
+            <form id="subscribe-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
         </div>
-    </section>
+        <p class="copyright">© 2026 Maroc Voyage. All rights reserved.</p>
+    </footer>
 
     <div id="login-modal" class="modal-overlay" style="display:none;">
         <div class="login-card">
             <span class="close-btn" onclick="toggleLogin(false)">&times;</span>
-            <h2>Welcome Back</h2>
+            <h2>Member Login</h2>
             <form id="login-form">
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="user-email" required>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" required>
-                </div>
+                <input type="email" id="user-email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
                 <button type="submit" class="auth-btn">Sign In</button>
             </form>
         </div>
     </div>
-
-    <footer class="footer">
-        <p>©2026 Maroc Voyage. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>

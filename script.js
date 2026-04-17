@@ -1,9 +1,9 @@
-// DATA: Folder path set to images/
+// DATA COLLECTIONS
 const destinations = [
-    { id: 'mar', name: 'Marrakech', price: 450, img: 'images/marakesh.jpg' },
-    { id: 'sah', name: 'Sahara Desert', price: 600, img: 'images/sahara desert.jpg' },
-    { id: 'fes', name: 'Fes', price: 350, img: 'images/fes.jpg' },
-    { id: 'che', name: 'Chefchaouen', price: 300, img: 'images/chefchaouen.jpg' }
+    { id: 'd1', name: 'Marrakech', price: 450, img: 'images/marakesh.jpg' },
+    { id: 'd2', name: 'Sahara Desert', price: 600, img: 'images/sahara desert.jpg' },
+    { id: 'd3', name: 'Fes', price: 350, img: 'images/fes.jpg' },
+    { id: 'd4', name: 'Chefchaouen', price: 300, img: 'images/chefchaouen.jpg' }
 ];
 
 const hotels = [
@@ -15,62 +15,72 @@ const hotels = [
     { id: 'h6', name: 'Riad Maria', price: 140, img: 'images/maria.jpg' }
 ];
 
+const reviews = [
+    { name: 'Maria Orlova', text: 'The desert stay was magical.', img: 'images/maria-orlova.jpg' },
+    { name: 'Chloe Lefleur', text: 'Stunning architecture and service.', img: 'images/chloe-lefleur.jpg' },
+    { name: 'Alexander', text: 'A truly luxury experience.', img: 'images/alexander.jpg' },
+    { name: 'Zyna', text: 'Best trip of my life!', img: 'images/zyna.jpg' }
+];
+
+const travelTips = [
+    "Friday is Couscous day across Morocco!",
+    "Learn a few Darija words like 'Shukran' (Thank you).",
+    "Bring comfortable shoes for the Marrakech Medina.",
+    "The blue streets of Chefchaouen are best at sunrise."
+];
+
 let cart = [];
 
-// NAVIGATION
-function showSection(viewId) {
-    document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
-    document.getElementById(viewId + '-view').style.display = 'block';
-    window.scrollTo(0, 0);
+// INITIALIZE
+window.onload = () => {
+    renderGrid('dest-grid', destinations, 'dest');
+    renderGrid('stay-grid', hotels, 'stay');
+    renderReviews();
+    initCreative();
+};
+
+function renderGrid(containerId, data, type) {
+    const container = document.getElementById(containerId);
+    data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${item.img}" onerror="this.src='https://via.placeholder.com/400x300'">
+            <div class="card-body">
+                <h3>${item.name}</h3>
+                <p><strong>$${item.price}</strong></p>
+                <button class="add-btn" style="background:#B24C3D; color:white; border:none; padding:8px 15px; border-radius:4px; cursor:pointer;" onclick="addToTrip('${item.id}', '${type}')">Add to Trip</button>
+            </div>
+        `;
+        container.appendChild(card);
+    });
 }
 
-function switchTab(event, tabId) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
+function renderReviews() {
+    const container = document.getElementById('experience-grid');
+    reviews.forEach(rev => {
+        container.innerHTML += `
+            <div class="card">
+                <img src="${rev.img}" style="height:250px">
+                <div class="card-body"><h3>${rev.name}</h3><p>"${rev.text}"</p></div>
+            </div>`;
+    });
 }
 
-// LOGIN
-function toggleLogin(show) {
-    document.getElementById('login-modal').style.display = show ? 'flex' : 'none';
+function initCreative() {
+    const tipEl = document.getElementById('daily-tip');
+    tipEl.innerText = travelTips[Math.floor(Math.random() * travelTips.length)];
+    
+    document.getElementById('subscribe-form').onsubmit = (e) => {
+        e.preventDefault();
+        alert("Welcome to the VIP list!");
+    };
 }
 
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('user-email').value;
-    alert(`Welcome back, ${email.split('@')[0]}!`);
-    toggleLogin(false);
-    document.querySelector('.login-btn').innerText = "My Profile";
-});
-
-// RENDERING
-function renderGrids() {
-    const destGrid = document.getElementById('dest-grid');
-    destinations.forEach(item => destGrid.appendChild(createCard(item, 'dest')));
-
-    const stayGrid = document.getElementById('stay-grid');
-    hotels.forEach(item => stayGrid.appendChild(createCard(item, 'stay')));
-}
-
-function createCard(item, type) {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-        <img src="${item.img}" onerror="this.src='https://via.placeholder.com/300x200?text=Check+Images+Folder'">
-        <div class="card-body">
-            <h3>${item.name}</h3>
-            <strong>$${item.price}</strong>
-            <button class="add-btn" style="float:right; background:#B24C3D; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="addToTrip('${item.id}', '${type}')">+ Add</button>
-        </div>
-    `;
-    return div;
-}
-
-// CART LOGIC
+// LOGIC
 function addToTrip(id, type) {
-    const list = type === 'dest' ? destinations : hotels;
-    const item = list.find(i => i.id === id);
+    const source = (type === 'dest') ? destinations : hotels;
+    const item = source.find(i => i.id === id);
     if (!cart.find(c => c.id === id)) {
         cart.push(item);
         updateSidebar();
@@ -78,24 +88,35 @@ function addToTrip(id, type) {
 }
 
 function updateSidebar() {
-    const container = document.getElementById('cart-items');
-    const totalEl = document.getElementById('total-price');
-    container.innerHTML = '';
+    const list = document.getElementById('cart-items');
+    const totalDisplay = document.getElementById('total-price');
+    list.innerHTML = '';
     let total = 0;
     cart.forEach(item => {
-        const icon = item.id.startsWith('h') ? '🏨' : '📍';
-        container.innerHTML += `<p>${icon} ${item.name} <span style="float:right">$${item.price}</span></p>`;
+        list.innerHTML += `<p>📍 ${item.name} <span style="float:right">$${item.price}</span></p>`;
         total += item.price;
     });
-    totalEl.innerText = `$${total}`;
+    totalDisplay.innerText = `$${total}`;
 }
 
-// FINAL CONFIRMATION
+function showSection(id) {
+    document.querySelectorAll('.view-section').forEach(s => s.style.display = 'none');
+    document.getElementById(id + '-view').style.display = 'block';
+}
+
+function switchTab(e, id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    e.currentTarget.classList.add('active');
+}
+
+function toggleLogin(show) {
+    document.getElementById('login-modal').style.display = show ? 'flex' : 'none';
+}
+
 function confirmTrip() {
-    if (cart.length === 0) return alert("Select at least one item first!");
-    const finalDiv = document.getElementById('final-summary');
-    finalDiv.innerHTML = `<h3>Summary:</h3><ul>${cart.map(i => `<li>${i.name} - $${i.price}</li>`).join('')}</ul>`;
+    if (cart.length === 0) return alert('Select items first!');
+    document.getElementById('final-summary').innerHTML = `<ul>${cart.map(i => `<li>${i.name} - $${i.price}</li>`).join('')}</ul>`;
     showSection('confirmation');
 }
-
-window.onload = renderGrids;
