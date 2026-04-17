@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maroc Voyage | Luxury Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Maroc Voyage</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="#" onclick="showSection('planner')">Planner</a></li>
+            <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+        </ul>
+        <button class="login-btn" onclick="toggleLogin(true)">Log in</button>
+    </nav>
+
+    <section id="home-view" class="view-section">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Build Your Trip</h1>
+                <p>Customize your Moroccan experience step by step.</p>
+                <button class="start-btn" onclick="showSection('planner')">Start Planning</button>
+            </div>
+        </header>
+    </section>
+
+    <section id="planner-view" class="view-section" style="display:none;">
+        <div class="planner-layout">
+            <main class="planner-main">
+                <div class="tabs">
+                    <button class="tab-link active" onclick="switchTab(event, 'dest-tab')">1. Destinations</button>
+                    <button class="tab-link" onclick="switchTab(event, 'stay-tab')">2. Stays</button>
+                    <button class="tab-link" onclick="switchTab(event, 'review-tab')">3. Review</button>
+                </div>
+                
+                <div id="dest-tab" class="tab-content active">
+                    <h2>Select Destinations</h2>
+                    <div class="grid" id="dest-grid"></div>
+                </div>
+
+                <div id="stay-tab" class="tab-content">
+                    <h2>Luxury Stays</h2>
+                    <p>Select a traditional Riad or luxury hotel for your stay.</p>
+                    <div class="grid" id="stay-grid"></div>
+                </div>
+
+                <div id="review-tab" class="tab-content">
+                    <h2>Review Your Trip</h2>
+                    <p>Check your selections before confirming.</p>
+                    <button class="confirm-btn" style="width: 200px;" onclick="confirmTrip()">Confirm My Trip</button>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="summary-card">
+                    <h3>Your Trip</h3>
+                    <div class="summary-details">
+                        <p><strong>Dates:</strong> Oct 12 - Oct 19</p>
+                        <p><strong>Travelers:</strong> 2 Adults</p>
+                    </div>
+                    <hr>
+                    <div id="cart-items">
+                        <p class="empty-msg">Nothing selected yet.</p>
+                    </div>
+                    <div class="total-row">
+                        <p>Estimated Total</p>
+                        <h2 id="total-price">$0</h2>
+                    </div>
+                    <button class="confirm-btn" onclick="confirmTrip()">Confirm My Trip</button>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="confirmation-view" class="view-section" style="display:none;">
+        <div class="confirm-container">
+            <div class="success-icon">✔</div>
+            <h2>Trip Confirmed!</h2>
+            <p>Your Moroccan adventure is ready. Check your email for the full itinerary.</p>
+            <div class="booking-summary" id="final-summary"></div>
+            <button class="start-btn" onclick="showSection('home')">Back to Home</button>
+        </div>
+    </section>
+
+    <section id="contact-view" class="view-section" style="display:none;">
+        <div class="contact-box">
+            <h2>Contact Us</h2>
+            <p>📍 123 Medina Street, Marrakech, Morocco</p>
+            <p>📧 hello@moroccotravel.com</p>
+        </div>
+    </section>
+
+    <div id="login-modal" class="modal-overlay" style="display:none;">
+        <div class="login-card">
+            <span class="close-btn" onclick="toggleLogin(false)">&times;</span>
+            <h2>Sign In</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="auth-btn">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>©2026 Maroc Voyage. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
