@@ -2,20 +2,19 @@
     --terracotta: #B24C3D;
     --dark: #1A1A1A;
     --white: #FFFFFF;
-    --green: #27ae60;
 }
 
-body { font-family: 'Inter', sans-serif; margin: 0; color: var(--dark); overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; margin: 0; background: #fafafa; color: var(--dark); }
 
-/* Existing Styles from previous steps... */
-.navbar { display: flex; justify-content: space-between; padding: 20px 8%; align-items: center; border-bottom: 1px solid #eee; background: white; }
+.navbar { display: flex; justify-content: space-between; padding: 20px 8%; align-items: center; background: white; border-bottom: 1px solid #eee; }
 .nav-links { display: flex; list-style: none; gap: 30px; }
 .nav-links a { text-decoration: none; color: var(--dark); cursor: pointer; font-weight: 500; }
 .login-btn { padding: 10px 25px; border-radius: 5px; border: 1px solid var(--dark); background: none; cursor: pointer; }
 
-.hero { height: 80vh; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('welcome page.jpg') center/cover; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
+/* HERO - Folder path updated to images/ */
+.hero { height: 80vh; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/welcome page.jpg') center/cover; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
 .hero h1 { font-size: 4rem; margin-bottom: 10px; }
-.start-btn { background: var(--terracotta); border: none; padding: 15px 40px; color: white; border-radius: 8px; cursor: pointer; font-size: 1.1rem; margin-top: 20px; }
+.start-btn { background: var(--terracotta); border: none; padding: 15px 40px; color: white; border-radius: 8px; cursor: pointer; font-size: 1.1rem; }
 
 .planner-layout { display: flex; padding: 40px 8%; gap: 40px; }
 .planner-main { flex: 2; }
@@ -28,25 +27,23 @@ body { font-family: 'Inter', sans-serif; margin: 0; color: var(--dark); overflow
 .tab-content.active { display: block; }
 
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.card { border: 1px solid #eee; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.card img { width: 100%; height: 180px; object-fit: cover; }
+.card { border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
+.card img { width: 100%; height: 200px; object-fit: cover; }
 .card-body { padding: 20px; }
-.add-btn { background: var(--terracotta); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; float: right; }
 
 .summary-card { background: white; padding: 30px; border-radius: 15px; border: 1px solid #ddd; position: sticky; top: 100px; }
 .confirm-btn { width: 100%; padding: 15px; background: var(--terracotta); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
-/* CONFIRMATION STYLES */
-.confirm-container { text-align: center; padding: 80px 8%; max-width: 600px; margin: 0 auto; min-height: 70vh; }
-.success-icon { font-size: 80px; color: var(--green); margin-bottom: 20px; }
-.booking-summary { background: #f9f9f9; padding: 30px; border-radius: 12px; margin: 30px 0; text-align: left; border-left: 5px solid var(--terracotta); }
-
-/* Modal & Contact */
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000; }
 .login-card { background: white; padding: 40px; border-radius: 15px; width: 350px; position: relative; }
 .input-group { text-align: left; margin-bottom: 15px; }
 .input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
 .auth-btn { width: 100%; padding: 12px; background: var(--terracotta); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
 .close-btn { position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; }
-.contact-box { text-align: center; padding: 100px 0; min-height: 60vh; }
+
+.confirm-container { text-align: center; padding: 100px 8%; max-width: 600px; margin: 0 auto; }
+.success-icon { font-size: 70px; color: #27ae60; margin-bottom: 20px; }
+.booking-summary { background: #fff; padding: 25px; border-radius: 10px; margin: 30px 0; text-align: left; border-left: 5px solid var(--terracotta); }
+
+.contact-box { text-align: center; padding: 100px 0; }
 .footer { text-align: center; padding: 40px; border-top: 1px solid #eee; font-size: 14px; color: #777; }

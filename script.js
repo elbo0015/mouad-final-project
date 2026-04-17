@@ -1,23 +1,23 @@
-// 1. DATA: Cities and Hotels (using your uploaded images)
+// DATA: Folder path set to images/
 const destinations = [
-    { id: 'mar', name: 'Marrakech', price: 450, img: 'marakesh.jpg' },
-    { id: 'sah', name: 'Sahara Desert', price: 600, img: 'sahara desert.jpg' },
-    { id: 'fes', name: 'Fes', price: 350, img: 'fes.jpg' },
-    { id: 'che', name: 'Chefchaouen', price: 300, img: 'chefchaouen.jpg' }
+    { id: 'mar', name: 'Marrakech', price: 450, img: 'images/marakesh.jpg' },
+    { id: 'sah', name: 'Sahara Desert', price: 600, img: 'images/sahara desert.jpg' },
+    { id: 'fes', name: 'Fes', price: 350, img: 'images/fes.jpg' },
+    { id: 'che', name: 'Chefchaouen', price: 300, img: 'images/chefchaouen.jpg' }
 ];
 
 const hotels = [
-    { id: 'h1', name: 'Ryad Lfath', price: 120, img: 'ryad lfath.jpg' },
-    { id: 'h2', name: 'Ryad Oulfa', price: 150, img: 'ryad oulfa.jpg' },
-    { id: 'h3', name: 'Ain Atiik', price: 110, img: 'ain atiik.jpg' },
-    { id: 'h4', name: 'Hotel Salam', price: 95, img: 'salam.jpg' },
-    { id: 'h5', name: 'Riad Azabache', price: 135, img: 'azabache.jpg' },
-    { id: 'h6', name: 'Riad Maria', price: 140, img: 'maria.jpg' }
+    { id: 'h1', name: 'Ryad Lfath', price: 120, img: 'images/ryad lfath.jpg' },
+    { id: 'h2', name: 'Ryad Oulfa', price: 150, img: 'images/ryad oulfa.jpg' },
+    { id: 'h3', name: 'Ain Atiik', price: 110, img: 'images/ain atiik.jpg' },
+    { id: 'h4', name: 'Hotel Salam', price: 95, img: 'images/salam.jpg' },
+    { id: 'h5', name: 'Riad Azabache', price: 135, img: 'images/azabache.jpg' },
+    { id: 'h6', name: 'Riad Maria', price: 140, img: 'images/maria.jpg' }
 ];
 
 let cart = [];
 
-// 2. VIEW NAVIGATION
+// NAVIGATION
 function showSection(viewId) {
     document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
     document.getElementById(viewId + '-view').style.display = 'block';
@@ -31,7 +31,7 @@ function switchTab(event, tabId) {
     event.currentTarget.classList.add('active');
 }
 
-// 3. AUTH LOGIC
+// LOGIN
 function toggleLogin(show) {
     document.getElementById('login-modal').style.display = show ? 'flex' : 'none';
 }
@@ -44,42 +44,33 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     document.querySelector('.login-btn').innerText = "My Profile";
 });
 
-// 4. RENDERING GRIDS
-function renderContent() {
-    // Render Destinations
+// RENDERING
+function renderGrids() {
     const destGrid = document.getElementById('dest-grid');
-    destinations.forEach(item => {
-        const card = createCard(item, 'dest');
-        destGrid.appendChild(card);
-    });
+    destinations.forEach(item => destGrid.appendChild(createCard(item, 'dest')));
 
-    // Render Hotels
     const stayGrid = document.getElementById('stay-grid');
-    hotels.forEach(item => {
-        const card = createCard(item, 'stay');
-        stayGrid.appendChild(card);
-    });
+    hotels.forEach(item => stayGrid.appendChild(createCard(item, 'stay')));
 }
 
 function createCard(item, type) {
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
-        <img src="${item.img}">
+        <img src="${item.img}" onerror="this.src='https://via.placeholder.com/300x200?text=Check+Images+Folder'">
         <div class="card-body">
             <h3>${item.name}</h3>
-            <strong>$${item.price}${type === 'stay' ? ' / night' : ''}</strong>
-            <button class="add-btn" onclick="addToTrip('${item.id}', '${type}')">+ Add</button>
+            <strong>$${item.price}</strong>
+            <button class="add-btn" style="float:right; background:#B24C3D; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="addToTrip('${item.id}', '${type}')">+ Add</button>
         </div>
     `;
     return div;
 }
 
-// 5. CART LOGIC
+// CART LOGIC
 function addToTrip(id, type) {
     const list = type === 'dest' ? destinations : hotels;
     const item = list.find(i => i.id === id);
-    
     if (!cart.find(c => c.id === id)) {
         cart.push(item);
         updateSidebar();
@@ -91,41 +82,20 @@ function updateSidebar() {
     const totalEl = document.getElementById('total-price');
     container.innerHTML = '';
     let total = 0;
-
-    if (cart.length === 0) {
-        container.innerHTML = '<p class="empty-msg">Nothing selected yet.</p>';
-    } else {
-        cart.forEach(item => {
-            const p = document.createElement('p');
-            const icon = item.id.startsWith('h') ? '🏨' : '📍';
-            p.innerHTML = `${icon} ${item.name} <span style="float:right">$${item.price}</span>`;
-            container.appendChild(p);
-            total += item.price;
-        });
-    }
+    cart.forEach(item => {
+        const icon = item.id.startsWith('h') ? '🏨' : '📍';
+        container.innerHTML += `<p>${icon} ${item.name} <span style="float:right">$${item.price}</span></p>`;
+        total += item.price;
+    });
     totalEl.innerText = `$${total}`;
 }
 
-// 6. CONFIRMATION LOGIC
+// FINAL CONFIRMATION
 function confirmTrip() {
-    if (cart.length === 0) {
-        alert("Select at least one destination or hotel to confirm.");
-        return;
-    }
-
-    const summaryDiv = document.getElementById('final-summary');
-    let total = 0;
-    let html = '<h3>Booking Details:</h3><ul>';
-    
-    cart.forEach(item => {
-        html += `<li>${item.name} - $${item.price}</li>`;
-        total += item.price;
-    });
-    
-    html += `</ul><hr><h4>Grand Total: $${total}</h4>`;
-    summaryDiv.innerHTML = html;
-    
+    if (cart.length === 0) return alert("Select at least one item first!");
+    const finalDiv = document.getElementById('final-summary');
+    finalDiv.innerHTML = `<h3>Summary:</h3><ul>${cart.map(i => `<li>${i.name} - $${i.price}</li>`).join('')}</ul>`;
     showSection('confirmation');
 }
 
-window.onload = renderContent;
+window.onload = renderGrids;

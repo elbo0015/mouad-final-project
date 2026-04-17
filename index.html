@@ -44,25 +44,19 @@
 
                 <div id="stay-tab" class="tab-content">
                     <h2>Luxury Stays</h2>
-                    <p>Select a traditional Riad or luxury hotel for your stay.</p>
+                    <p>Select a traditional Riad for your nights in Morocco.</p>
                     <div class="grid" id="stay-grid"></div>
                 </div>
 
                 <div id="review-tab" class="tab-content">
-                    <h2>Review Your Trip</h2>
-                    <p>Check your selections before confirming.</p>
-                    <button class="confirm-btn" style="width: 200px;" onclick="confirmTrip()">Confirm My Trip</button>
+                    <h2>Ready to Go?</h2>
+                    <p>Review your selection in the sidebar and click confirm.</p>
                 </div>
             </main>
 
             <aside class="sidebar">
                 <div class="summary-card">
                     <h3>Your Trip</h3>
-                    <div class="summary-details">
-                        <p><strong>Dates:</strong> Oct 12 - Oct 19</p>
-                        <p><strong>Travelers:</strong> 2 Adults</p>
-                    </div>
-                    <hr>
                     <div id="cart-items">
                         <p class="empty-msg">Nothing selected yet.</p>
                     </div>
@@ -80,7 +74,6 @@
         <div class="confirm-container">
             <div class="success-icon">✔</div>
             <h2>Trip Confirmed!</h2>
-            <p>Your Moroccan adventure is ready. Check your email for the full itinerary.</p>
             <div class="booking-summary" id="final-summary"></div>
             <button class="start-btn" onclick="showSection('home')">Back to Home</button>
         </div>
@@ -97,7 +90,7 @@
     <div id="login-modal" class="modal-overlay" style="display:none;">
         <div class="login-card">
             <span class="close-btn" onclick="toggleLogin(false)">&times;</span>
-            <h2>Sign In</h2>
+            <h2>Welcome Back</h2>
             <form id="login-form">
                 <div class="input-group">
                     <label>Email</label>
@@ -107,7 +100,7 @@
                     <label>Password</label>
                     <input type="password" required>
                 </div>
-                <button type="submit" class="auth-btn">Log In</button>
+                <button type="submit" class="auth-btn">Sign In</button>
             </form>
         </div>
     </div>
